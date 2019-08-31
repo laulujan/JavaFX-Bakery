@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="Controllers.SceneBakeryController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="224.0" layoutY="34.0" prefHeight="30.0" prefWidth="132.0" text="Orden Cliente">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtName" layoutX="49.0" layoutY="132.0" prefHeight="27.0" prefWidth="295.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Label layoutX="51.0" layoutY="353.0" prefHeight="29.0" prefWidth="102.0" text="Cantidad:">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnSend" layoutX="51.0" layoutY="440.0" mnemonicParsing="false" onAction="#btnSend_ActionPerfomed" prefHeight="0.0" prefWidth="110.0" text="Enviar">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="cmbCake" layoutX="51.0" layoutY="214.0" prefHeight="26.0" prefWidth="295.0" />
+      <Label layoutX="49.0" layoutY="179.0" prefHeight="18.0" prefWidth="295.0" text="Pastel:">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="94.0" text="Nombre:">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="cmbFlavor" layoutX="50.0" layoutY="262.0" text="Sabor:">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="51.0" layoutY="303.0" prefHeight="26.0" prefWidth="295.0" />
+      <Spinner fx:id="spnQuantity" layoutX="50.0" layoutY="391.0" />
+      <Button fx:id="btnCancel" layoutX="180.0" layoutY="440.0" mnemonicParsing="false" onAction="#btnCancel_ActionPerfomed" prefHeight="0.0" prefWidth="110.0" text="Cancelar">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
