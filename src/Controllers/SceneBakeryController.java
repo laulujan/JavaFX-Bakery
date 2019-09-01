@@ -5,9 +5,13 @@
  */
 package Controllers;
 
+import Beans.Cake;
+import DataAdapters.cbCake;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,7 +27,10 @@ import javafx.scene.control.TextField;
  * @author Benjamin
  */
 public class SceneBakeryController implements Initializable {
-     @FXML
+    
+    cbCake cbcake = new cbCake();
+   
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -36,10 +43,10 @@ public class SceneBakeryController implements Initializable {
     private Button btnSend;
 
     @FXML
-    private ComboBox<?> cmbCake;
+    private ComboBox<Cake> cmbCake;
 
     @FXML
-    private Label cmbFlavor;
+    private ComboBox<?> cmbFlavor;
 
     @FXML
     private Spinner<?> spnQuantity;
@@ -73,6 +80,14 @@ public class SceneBakeryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+         loadCmbCake();
+        
+    }
+    private void loadCmbCake() {
+        
+        cmbCake.getItems().clear();
+        ObservableList<Cake> data = FXCollections.observableArrayList(cbcake.Select());
+        cmbCake.setItems(data);
+    }
     
 }
