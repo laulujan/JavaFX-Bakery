@@ -6,7 +6,9 @@
 package Controllers;
 
 import Beans.Cake;
+import Beans.Size;
 import DataAdapters.cbCake;
+import DataAdapters.cbSize;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,8 +31,9 @@ import javafx.scene.control.TextField;
 public class SceneBakeryController implements Initializable {
     
     cbCake cbcake = new cbCake();
+    cbSize cbsize = new cbSize();
    
-    @FXML
+@FXML
     private ResourceBundle resources;
 
     @FXML
@@ -46,7 +49,7 @@ public class SceneBakeryController implements Initializable {
     private ComboBox<Cake> cmbCake;
 
     @FXML
-    private ComboBox<?> cmbFlavor;
+    private ComboBox<Size> cmbSize;
 
     @FXML
     private Spinner<?> spnQuantity;
@@ -69,7 +72,7 @@ public class SceneBakeryController implements Initializable {
         assert txtName != null : "fx:id=\"txtName\" was not injected: check your FXML file 'sceneBakery.fxml'.";
         assert btnSend != null : "fx:id=\"btnSend\" was not injected: check your FXML file 'sceneBakery.fxml'.";
         assert cmbCake != null : "fx:id=\"cmbCake\" was not injected: check your FXML file 'sceneBakery.fxml'.";
-        assert cmbFlavor != null : "fx:id=\"cmbFlavor\" was not injected: check your FXML file 'sceneBakery.fxml'.";
+        assert cmbSize != null : "fx:id=\"cmbSize\" was not injected: check your FXML file 'sceneBakery.fxml'.";
         assert spnQuantity != null : "fx:id=\"spnQuantity\" was not injected: check your FXML file 'sceneBakery.fxml'.";
         assert btnCancel != null : "fx:id=\"btnCancel\" was not injected: check your FXML file 'sceneBakery.fxml'.";
 
@@ -81,13 +84,20 @@ public class SceneBakeryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
          loadCmbCake();
-        
+         loadCmbSize();
     }
     private void loadCmbCake() {
         
         cmbCake.getItems().clear();
         ObservableList<Cake> data = FXCollections.observableArrayList(cbcake.Select());
         cmbCake.setItems(data);
+    }
+    
+    private void loadCmbSize() {
+        
+        cmbSize.getItems().clear();
+        ObservableList<Size> data = FXCollections.observableArrayList(cbsize.Select());
+        cmbSize.setItems(data);
     }
     
 }

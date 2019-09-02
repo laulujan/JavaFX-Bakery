@@ -6,6 +6,7 @@
 package DataAdapters;
 
 import Beans.Cake;
+import Beans.Size;
 import Persistence.JDBCMySQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,33 +19,33 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Proyectos
+ * @author Benjamin
  */
-public class cbCake {
-
+public class cbSize {
+    
     JDBCMySQL con = new JDBCMySQL();
     Connection c = con.connect();
-    List<Cake> rsCake = new ArrayList<Cake>();
+    List<Size> rsSize = new ArrayList<Size>();
 
-    public List<Cake> Select() {
+    public List<Size> Select() {
 
         try {
             System.out.println(c);
             PreparedStatement verificarStmt
                     = c.prepareStatement("SELECT "
-                            + "   DISTINCT descripcion"
-                            + " FROM pasteles");
+                            + "   id, descripcion"
+                            + " FROM tamano ");
 
             ResultSet rs = verificarStmt.executeQuery();
             while (rs.next()) {
 //                Divisa divisa = new Divisa(rs.getString("nombre"), rs.getDouble("valor"));
-                Cake cake = new Cake(rs.getString("descripcion"));
-                rsCake.add(cake);
+                Size size = new Size(rs.getInt("id"),rs.getString("descripcion"));
+                rsSize.add(size);
             }
-            return rsCake;
+            return rsSize;
 
         } catch (SQLException e) {
-            Logger.getLogger(cbCake.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(cbSize.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             con.desconectar();
         }

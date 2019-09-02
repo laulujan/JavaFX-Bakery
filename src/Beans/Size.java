@@ -12,16 +12,16 @@ import javafx.beans.property.StringProperty;
  *
  * @author Benjamin
  */
-public class Cake {
+public class Size {
 
     private final StringProperty descripcion;
- //   private final StringProperty idCake;
+    private int id;
 //    private DoubleProperty valor;
 
     //Constructor con propiedades
-    public Cake(String descripcion) {
+    public Size(int id, String descripcion) {
         this.descripcion = new SimpleStringProperty(descripcion);
-  //      this.idCake = new SimpleStringProperty(idCake);
+        this.id = id;
     }
 
     public void setDescripcion(String Descripcion) {
@@ -31,13 +31,15 @@ public class Cake {
     public String getDescripcion() {
         return descripcion.get();
     }
-//    public void setIdCake(String idCake) {
-//        this.idCake.set(idCake);
-//    }
-//
-//    public String getIdCake() {
-//        return idCake.get();
-//    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void getId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return descripcion.get();
