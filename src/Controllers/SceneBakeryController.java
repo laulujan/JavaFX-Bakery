@@ -20,8 +20,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
-
 
 /**
  * FXML Controller class
@@ -29,11 +29,12 @@ import javafx.scene.control.TextField;
  * @author Benjamin
  */
 public class SceneBakeryController implements Initializable {
-    
+
     cbCake cbcake = new cbCake();
     cbSize cbsize = new cbSize();
-   
-@FXML
+    int desc;
+
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -52,7 +53,7 @@ public class SceneBakeryController implements Initializable {
     private ComboBox<Size> cmbSize;
 
     @FXML
-    private Spinner<?> spnQuantity;
+    private Spinner<Integer> spnQuantity;
 
     @FXML
     private Button btnCancel;
@@ -68,6 +69,13 @@ public class SceneBakeryController implements Initializable {
     }
 
     @FXML
+    void cmbSize_ActionPerfomed(ActionEvent event) {
+        cbsize.setDescripcion(cmbSize.getValue().toString());
+        cbsize.buscarIdSizeByName();
+        loadCmbCake();
+    }
+
+    @FXML
     void initialize() {
         assert txtName != null : "fx:id=\"txtName\" was not injected: check your FXML file 'sceneBakery.fxml'.";
         assert btnSend != null : "fx:id=\"btnSend\" was not injected: check your FXML file 'sceneBakery.fxml'.";
@@ -77,27 +85,30 @@ public class SceneBakeryController implements Initializable {
         assert btnCancel != null : "fx:id=\"btnCancel\" was not injected: check your FXML file 'sceneBakery.fxml'.";
 
     }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         loadCmbCake();
-         loadCmbSize();
+        loadCmbSize();
+        //Configure the spinner
+        SpinnerValueFactory<Integer> gradesValueFctory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1);
+        this.spnQuantity.setValueFactory(gradesValueFctory);
     }
-    private void loadCmbCake() {
-        
+
+    private void loadCmbCake() { //Method that loads the Cake (Flavor) ComboBox
         cmbCake.getItems().clear();
-        ObservableList<Cake> data = FXCollections.observableArrayList(cbcake.Select());
-        cmbCake.setItems(data);
+        cbcake.setId(cbsize.getId()); //Sets Size Id to quaery method in DataAdapters.cbCake 
+        ObservableList<Cake> data = FXCollections.observableArrayList(cbcake.Select()); //Creates observable list from Array created in DataAdaoter.cbCake
+        cmbCake.setItems(data);//Sets the data obtained from the Array and  fills the ComboBox
     }
-    
-    private void loadCmbSize() {
-        
+
+    private void loadCmbSize() { //Method that loads the Size ComboBox
         cmbSize.getItems().clear();
         ObservableList<Size> data = FXCollections.observableArrayList(cbsize.Select());
         cmbSize.setItems(data);
     }
-    
+
 }

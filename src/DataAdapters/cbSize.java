@@ -23,6 +23,8 @@ import java.util.logging.Logger;
  */
 public class cbSize {
     
+    private int id;
+    private String descripcion;
     JDBCMySQL con = new JDBCMySQL();
     Connection c = con.connect();
     List<Size> rsSize = new ArrayList<Size>();
@@ -50,5 +52,43 @@ public class cbSize {
             con.desconectar();
         }
         return null;
+    }
+    
+    public boolean buscarIdSizeByName(){
+        boolean success = false;
+        try{
+            if(c != null){
+                PreparedStatement verificarStmt
+                    = c.prepareStatement("SELECT "
+                            + "   id "
+                            + " FROM tamano where descripcion = ?");
+                verificarStmt.setString(1, descripcion);
+                ResultSet rs = verificarStmt.executeQuery();
+                if(rs.next()){
+                    id = rs.getInt("id");
+                    success = true;
+                }
+            }
+        }catch (SQLException e) {
+            Logger.getLogger(cbSize.class.getName()).log(Level.SEVERE, null, e);
+    }finally{
+            con.desconectar();
+        }
+        return success;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+       public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

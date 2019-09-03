@@ -22,6 +22,8 @@ import java.util.logging.Logger;
  */
 public class cbCake {
 
+    private int id;
+    private cbSize cbsize;
     JDBCMySQL con = new JDBCMySQL();
     Connection c = con.connect();
     List<Cake> rsCake = new ArrayList<Cake>();
@@ -29,12 +31,12 @@ public class cbCake {
     public List<Cake> Select() {
 
         try {
-            System.out.println(c);
+            rsCake.clear();
             PreparedStatement verificarStmt
-                    = c.prepareStatement("SELECT "
-                            + "   DISTINCT descripcion"
-                            + " FROM pasteles");
-
+                    = c.prepareStatement("SELECT  "
+                            + "    descripcion"
+                            + " FROM pasteles where idTamano = ?");
+            verificarStmt.setInt(1, id);
             ResultSet rs = verificarStmt.executeQuery();
             while (rs.next()) {
 //                Divisa divisa = new Divisa(rs.getString("nombre"), rs.getDouble("valor"));
@@ -49,5 +51,13 @@ public class cbCake {
             con.desconectar();
         }
         return null;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
