@@ -12,16 +12,16 @@ import javafx.beans.property.StringProperty;
  *
  * @author Benjamin
  */
-public class Size {
+public class Pastel {
+    
+    //Crea constructor de Pastel con propiedades
 
     private final StringProperty descripcion;
     private int id;
-//    private DoubleProperty valor;
-
-    //Constructor con propiedades
-    public Size(int id, String descripcion) {
+ 
+    public Pastel(String descripcion) {
         this.descripcion = new SimpleStringProperty(descripcion);
-        this.id = id;
+        
     }
 
     public void setDescripcion(String Descripcion) {
@@ -31,18 +31,18 @@ public class Size {
     public String getDescripcion() {
         return descripcion.get();
     }
-    
-    public int getId() {
-        return id;
-    }
-
-    public void getId(int id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {
         return descripcion.get();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

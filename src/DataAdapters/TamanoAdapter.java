@@ -5,8 +5,8 @@
  */
 package DataAdapters;
 
-import Beans.Cake;
-import Beans.Size;
+import Beans.Pastel;
+import Beans.Tamano;
 import Persistence.JDBCMySQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,74 +21,81 @@ import java.util.logging.Logger;
  *
  * @author Benjamin
  */
-public class cbSize {
-    
+public class TamanoAdapter {
+
+    //Declara las variables del adapter
     private int id;
-    private String descripcion;
+    private String tamanoPastel;
+    List<Tamano> rsSize = new ArrayList<Tamano>();
+    
+    //Crea conexion con la base de datos
     JDBCMySQL con = new JDBCMySQL();
     Connection c = con.connect();
-    List<Size> rsSize = new ArrayList<Size>();
-
-    public List<Size> Select() {
-
+    
+    
+    //Metodo que fuarda los tamaños en una lista por medio de una consulta
+    public List<Tamano> Select() {
         try {
-            System.out.println(c);
             PreparedStatement verificarStmt
                     = c.prepareStatement("SELECT "
-                            + "   id, descripcion"
+                            + "   descripcion"
                             + " FROM tamano ");
 
             ResultSet rs = verificarStmt.executeQuery();
             while (rs.next()) {
 //                Divisa divisa = new Divisa(rs.getString("nombre"), rs.getDouble("valor"));
-                Size size = new Size(rs.getInt("id"),rs.getString("descripcion"));
+                Tamano size = new Tamano(rs.getString("descripcion"));
                 rsSize.add(size);
             }
             return rsSize;
 
         } catch (SQLException e) {
-            Logger.getLogger(cbSize.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(TamanoAdapter.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             con.desconectar();
         }
         return null;
     }
     
-    public boolean buscarIdSizeByName(){
+//Metodo que obtiene el id por el nombre/descripcion del tamaño del pastel
+    public boolean buscarIdSizeByName() {
         boolean success = false;
-        try{
-            if(c != null){
+        try {
+            if (c != null) {
                 PreparedStatement verificarStmt
-                    = c.prepareStatement("SELECT "
-                            + "   id "
-                            + " FROM tamano where descripcion = ?");
-                verificarStmt.setString(1, descripcion);
+                        = c.prepareStatement("SELECT "
+                                + "   id "
+                                + " FROM tamano where descripcion = ?");
+                verificarStmt.setString(1, tamanoPastel);
                 ResultSet rs = verificarStmt.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
                     id = rs.getInt("id");
+                    System.out.println(getId());
                     success = true;
                 }
             }
-        }catch (SQLException e) {
-            Logger.getLogger(cbSize.class.getName()).log(Level.SEVERE, null, e);
-    }finally{
+        } catch (SQLException e) {
+            Logger.getLogger(TamanoAdapter.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
             con.desconectar();
         }
         return success;
     }
-    
+
+    //Metodos GETTER y SETTER de las variables
+    public String getTamanoPastel() {
+        return tamanoPastel;
+    }
+
+    public void setTamanoPastel(String tamanoPastel) {
+        this.tamanoPastel = tamanoPastel;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-       public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 }
